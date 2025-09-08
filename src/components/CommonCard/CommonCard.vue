@@ -42,7 +42,7 @@ const { title, value } = defineProps<Props>()
 }
 .total {
   font-size: 12px;
-  color: #666;
+  // color: #666;
 }
 </style>
 

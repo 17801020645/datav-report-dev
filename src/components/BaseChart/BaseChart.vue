@@ -6,7 +6,7 @@
 <script setup lang="ts">
 // 按需引入的核心模块和图表组件:cite[5]:cite[7]
 import * as echarts from 'echarts/core' // 引入 echarts 核心模块
-import { BarChart, LineChart, PieChart } from 'echarts/charts' // 引入所需的图表类型
+import { LineChart } from 'echarts/charts' // 引入所需的图表类型
 import {
   TitleComponent,
   TooltipComponent,
@@ -22,9 +22,8 @@ echarts.use([
   TooltipComponent,
   GridComponent,
   LegendComponent,
-  BarChart,
+
   LineChart,
-  PieChart,
   CanvasRenderer,
 ])
 
