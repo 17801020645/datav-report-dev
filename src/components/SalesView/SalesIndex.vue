@@ -1,9 +1,7 @@
 <template>
-  <vue-echarts></vue-echarts>
+  <div>sales view</div>
 </template>
 
-<script setup lang="ts">
-import VueEcharts from '../VueEcharts/VueEcharts.vue'
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss"></style>
