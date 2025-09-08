@@ -21,7 +21,7 @@
 import CommonCard from '../CommonCard/CommonCard.vue'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart } from 'echarts/charts'
+import { LineChart, CustomChart } from 'echarts/charts'
 import {
   GridComponent,
   DatasetComponent,
@@ -30,6 +30,7 @@ import {
   ToolboxComponent,
 } from 'echarts/components'
 import VChart from 'vue-echarts'
+
 import { ref } from 'vue'
 
 use([
@@ -37,6 +38,7 @@ use([
   GridComponent,
   LegendComponent,
   LineChart,
+  CustomChart,
   TooltipComponent,
   ToolboxComponent,
   CanvasRenderer,
@@ -45,10 +47,12 @@ use([
 const option = ref({
   xAxis: {
     type: 'value',
+    show: false,
   },
   yAxis: {
     type: 'category',
     data: [], //把两列数据合并到一起的关键设置
+    show: false,
   },
   series: [
     {
@@ -61,14 +65,66 @@ const option = ref({
       },
     },
     {
-      data: [200],
+      data: [100],
       type: 'bar',
       stack: '总量',
       itemStyle: {
         color: '#45c946',
       },
     },
+    {
+      type: 'custom',
+      data: [100],
+      stack: '总量',
+      renderItem: (
+        param: echarts.CustomSeriesRenderItemParams,
+        api: echarts.CustomSeriesRenderItemAPI,
+      ) => {
+        const value = api.value(0)
+        const endPoint = api.coord([value, 0])
+        return {
+          type: 'group',
+          position: endPoint,
+          children: [
+            {
+              type: 'path',
+              shape: {
+                d: 'M1024 255.996 511.971 767.909 0 255.996 1024 255.996z',
+                x: -5,
+                y: -20,
+                width: 10,
+                height: 10,
+                layout: 'cover',
+              },
+              style: {
+                fill: '#45c946',
+              },
+            },
+            {
+              type: 'path',
+              shape: {
+                d: 'M0 767.909l512.029-511.913L1024 767.909 0 767.909z',
+                x: -5,
+                y: 10,
+                width: 10,
+                height: 10,
+                layout: 'cover',
+              },
+              style: {
+                fill: '#45c946',
+              },
+            },
+          ],
+        }
+      },
+    },
   ],
+  grid: {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
 })
 </script>
 
