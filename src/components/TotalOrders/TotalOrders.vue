@@ -38,14 +38,36 @@ use([
 // provide(THEME_KEY, 'dark')
 
 const option = ref({
-  xAxis: {},
-  yAxis: {},
+  xAxis: {
+    type: 'category',
+    show: false,
+    boundaryGap: false,
+  },
+  yAxis: {
+    show: false,
+  },
   series: [
     {
       type: 'line', // 使用折线图
       data: [320, 432, 501, 334, 790, 930, 220, 320, 532, 320, 834, 690, 530],
+      areaStyle: {
+        color: 'purple',
+      },
+      lineStyle: {
+        width: 0,
+      },
+      itemStyle: {
+        opacity: 0,
+      },
+      smooth: true,
     },
   ],
+  grid: {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
 })
 
 //TODO 按需引入，当前可行
