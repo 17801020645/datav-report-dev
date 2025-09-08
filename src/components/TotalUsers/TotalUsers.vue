@@ -1,7 +1,7 @@
 <template>
   <common-card title="累计用户数" value="1,087,503">
     <template #default>
-      <div>TODO</div>
+      <v-chart class="chart" :option="option" autoresize />
     </template>
     <!-- 具名插槽 -->
     <template #footer>
@@ -19,6 +19,57 @@
 
 <script setup lang="ts">
 import CommonCard from '../CommonCard/CommonCard.vue'
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { LineChart } from 'echarts/charts'
+import {
+  GridComponent,
+  DatasetComponent,
+  LegendComponent,
+  TooltipComponent,
+  ToolboxComponent,
+} from 'echarts/components'
+import VChart from 'vue-echarts'
+import { ref } from 'vue'
+
+use([
+  DatasetComponent,
+  GridComponent,
+  LegendComponent,
+  LineChart,
+  TooltipComponent,
+  ToolboxComponent,
+  CanvasRenderer,
+])
+
+const option = ref({
+  xAxis: {
+    type: 'value',
+  },
+  yAxis: {
+    type: 'category',
+    data: [], //把两列数据合并到一起的关键设置
+  },
+  series: [
+    {
+      data: [250],
+      type: 'bar',
+      stack: '总量',
+      barWidth: 10,
+      itemStyle: {
+        color: '#eee',
+      },
+    },
+    {
+      data: [200],
+      type: 'bar',
+      stack: '总量',
+      itemStyle: {
+        color: '#45c946',
+      },
+    },
+  ],
+})
 </script>
 
 <style scoped>
