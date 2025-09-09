@@ -14,6 +14,7 @@ export default defineConfig({
     },
   },
   server: {
+    host: '0.0.0.0', //解决Error: getaddrinfo ENOTFOUND localhost的问题
     port: 8080,
   },
 })
