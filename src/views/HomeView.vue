@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <top-index></top-index>
-    <bottom-index></bottom-index>
-    <map-index></map-index>
     <sales-index></sales-index>
+    <map-index></map-index>
+    <bottom-index></bottom-index>
   </div>
 </template>
 
