@@ -54,7 +54,11 @@
             </div>
           </div>
         </template>
-        <v-chart :option="categoryOptions"></v-chart>
+        <template v-slot:default>
+          <div class="chart-wrapper">
+            <v-chart :option="categoryOptions"></v-chart>
+          </div>
+        </template>
       </el-card>
     </div>
   </div>
@@ -63,8 +67,10 @@
 <script setup lang="ts">
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart } from 'echarts/charts'
+import { LineChart, PieChart } from 'echarts/charts'
 import {
+  PolarComponent,
+  TitleComponent,
   GridComponent,
   DatasetComponent,
   LegendComponent,
@@ -75,10 +81,14 @@ import VChart from 'vue-echarts'
 import { ref } from 'vue'
 
 use([
+  PieChart,
+  PolarComponent,
+  TitleComponent,
   DatasetComponent,
   GridComponent,
   LegendComponent,
   LineChart,
+  PieChart,
   TooltipComponent,
   ToolboxComponent,
   CanvasRenderer,
@@ -135,7 +145,67 @@ const tableData = ref([
 ])
 
 const radioSelect = ref<string>('品类')
-const categoryOptions = ref({})
+const categoryOptions = ref({
+  title: [
+    {
+      text: '品类分布',
+      textStyle: {
+        fontSize: 14,
+        color: '#666',
+      },
+      left: 20,
+      top: 20,
+    },
+  ],
+  series: [
+    {
+      type: 'pie',
+      data: [
+        {
+          legendname: '粉面粥店',
+          value: 67,
+          percent: '15.40%',
+        },
+        {
+          legendname: '简餐便当',
+          value: 97,
+          percent: '22.30%',
+        },
+        {
+          legendname: '汉堡披萨',
+          value: 92,
+          percent: '21.15%',
+        },
+      ],
+    },
+  ],
+})
+
+// function renderPieChart() {
+//   const mockData = [
+//     {
+//       legendname: '粉面粥店',
+//       value: 67,
+//       percent: '15.40%',
+//     },
+//     {
+//       legendname: '简餐便当',
+//       value: 97,
+//       percent: '22.30%',
+//     },
+//     {
+//       legendname: '汉堡披萨',
+//       value: 92,
+//       percent: '21.15%',
+//     },
+//     // {
+//     //   legendname: '粉面粥店',
+//     //   value: 67,
+//     //   percent: '15.40%',
+//     // },
+//     (categoryOptions.value = {}),
+//   ]
+// }
 </script>
 
 <style scoped lang="scss">
