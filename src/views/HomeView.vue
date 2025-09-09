@@ -2,8 +2,8 @@
   <div class="home">
     <top-index></top-index>
     <sales-index></sales-index>
-    <map-index></map-index>
     <bottom-index></bottom-index>
+    <map-index></map-index>
   </div>
 </template>
 
