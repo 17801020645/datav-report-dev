@@ -11,12 +11,13 @@
               <div class="chart">
                 <div class="chart-title">搜索用户数</div>
                 <div class="chart-data">93,634</div>
-                <v-chart :option="searchUserOption" autoresize> </v-chart>
+                <base-chart :option="searchUserOption" :width="width" :height="height">
+                </base-chart>
               </div>
               <div class="chart">
                 <div class="chart-title">搜索量</div>
                 <div class="chart-data">198,782</div>
-                <v-chart :option="searchUserOption"></v-chart>
+                <base-chart :option="searchUserOption" :width="width" :height="height"></base-chart>
                 <!-- <v-chart :option="searchNumberOption"></v-chart> -->
               </div>
             </div>
@@ -56,7 +57,7 @@
         </template>
         <template v-slot:default>
           <div class="chart-wrapper">
-            <v-chart :option="categoryOptions"></v-chart>
+            <base-chart :option="categoryOptions" :width="width" :height="height"></base-chart>
           </div>
         </template>
       </el-card>
@@ -65,34 +66,11 @@
 </template>
 
 <script setup lang="ts">
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart, PieChart } from 'echarts/charts'
-import {
-  PolarComponent,
-  TitleComponent,
-  GridComponent,
-  DatasetComponent,
-  LegendComponent,
-  TooltipComponent,
-  ToolboxComponent,
-} from 'echarts/components'
-import VChart from 'vue-echarts'
 import { ref } from 'vue'
+import BaseChart from '../BaseChart/BaseChart.vue'
 
-use([
-  PieChart,
-  PolarComponent,
-  TitleComponent,
-  DatasetComponent,
-  GridComponent,
-  LegendComponent,
-  LineChart,
-  PieChart,
-  TooltipComponent,
-  ToolboxComponent,
-  CanvasRenderer,
-])
+const height = ref('100%')
+const width = ref('100%')
 
 const switchPagination = ref(false)
 

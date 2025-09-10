@@ -1,7 +1,7 @@
 <template>
   <common-card title="累计用户数" value="1,087,503">
     <template #default>
-      <v-chart class="chart" :option="option" autoresize />
+      <base-chart class="chart" :option="option" :width="width" :height="height" autoresize />
     </template>
     <!-- 具名插槽 -->
     <template #footer>
@@ -19,30 +19,11 @@
 
 <script setup lang="ts">
 import CommonCard from '../CommonCard/CommonCard.vue'
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart, CustomChart } from 'echarts/charts'
-import {
-  GridComponent,
-  DatasetComponent,
-  LegendComponent,
-  TooltipComponent,
-  ToolboxComponent,
-} from 'echarts/components'
-import VChart from 'vue-echarts'
-
 import { ref } from 'vue'
+import BaseChart from '../BaseChart/BaseChart.vue'
 
-use([
-  DatasetComponent,
-  GridComponent,
-  LegendComponent,
-  LineChart,
-  CustomChart,
-  TooltipComponent,
-  ToolboxComponent,
-  CanvasRenderer,
-])
+const height = ref('100%')
+const width = ref('100%')
 
 const option = ref({
   xAxis: {

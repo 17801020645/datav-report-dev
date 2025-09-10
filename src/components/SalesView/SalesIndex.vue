@@ -35,7 +35,7 @@
       </template>
 
       <div class="sales-view-chart-wrapper">
-        <v-chart class="chart" :option="option" autoresize />
+        <base-chart class="chart" :option="option" :width="width" :height="height" autoresize />
         <div class="sales-view-list">
           <div class="sales-view-title">排行榜</div>
           <div class="list-item-wrapper">
@@ -54,12 +54,9 @@
 
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
-import { use } from 'echarts/core'
-import { BarChart } from 'echarts/charts'
-import { GridComponent, DatasetComponent, TitleComponent } from 'echarts/components'
-import VChart from 'vue-echarts'
-
-use([BarChart, DatasetComponent, GridComponent, TitleComponent])
+import BaseChart from '../BaseChart/BaseChart.vue'
+const height = ref('100%')
+const width = ref('100%')
 
 const activeIndex = ref<string>('1')
 const radioSelect = ref<string>('今日')

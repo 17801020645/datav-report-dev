@@ -1,103 +1,45 @@
-<!-- components/BaseChart.vue -->
-<template>
-  <div ref="chartDom" :style="{ width: width, height: height }"></div>
-</template>
-
 <script setup lang="ts">
-// 按需引入的核心模块和图表组件:cite[5]:cite[7]
-import * as echarts from 'echarts/core' // 引入 echarts 核心模块
-import { LineChart } from 'echarts/charts' // 引入所需的图表类型
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { LineChart, CustomChart, BarChart, PieChart } from 'echarts/charts'
+import type { ECBasicOption } from 'echarts/types/dist/shared'
 import {
+  PolarComponent,
   TitleComponent,
+  GridComponent,
+  DatasetComponent,
+  LegendComponent,
   TooltipComponent,
+  ToolboxComponent,
+} from 'echarts/components'
+import VChart from 'vue-echarts'
+
+use([
+  PieChart,
+  PolarComponent,
+  TitleComponent,
+  DatasetComponent,
   GridComponent,
   LegendComponent,
-} from 'echarts/components' // 引入所需的组件
-import { CanvasRenderer } from 'echarts/renderers' // 引入 Canvas 渲染器
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
-
-// 注册必需的组件、图表和渲染器:cite[5]:cite[7]
-echarts.use([
-  TitleComponent,
-  TooltipComponent,
-  GridComponent,
-  LegendComponent,
-
   LineChart,
+  BarChart,
+  CustomChart,
+  TooltipComponent,
+  ToolboxComponent,
   CanvasRenderer,
 ])
 
-// 定义组件接收的属性
-const props = defineProps({
-  option: {
-    // ECharts 配置选项
-    type: Object,
-    required: true,
-    default: () => ({}),
-  },
-  width: {
-    // 图表容器宽度
-    type: String,
-    default: '100%',
-  },
-  height: {
-    // 图表容器高度
-    type: String,
-    default: '400px',
-  },
-  theme: {
-    // 主题
-    type: [String, Object],
-    default: null,
-  },
-})
-
-const chartDom = ref(null) // 引用图表容器 DOM
-let chartInstance: echarts.ECharts | null = null
-
-// 初始化图表
-const initChart = () => {
-  if (!chartDom.value) return
-  // 如果已存在实例，先销毁:cite[8]
-  if (chartInstance) {
-    chartInstance.dispose()
-  }
-  // 初始化图表实例:cite[2]:cite[3]
-  chartInstance = echarts.init(chartDom.value, props.theme)
-  chartInstance.setOption(props.option)
+interface Props {
+  width: string
+  height: string
+  option: ECBasicOption | undefined
 }
 
-// 监听选项变化，更新图表:cite[8]
-watch(
-  () => props.option,
-  (newOption) => {
-    if (chartInstance) {
-      chartInstance.setOption(newOption)
-    }
-  },
-  { deep: true },
-) // 深度监听，因为 option 是对象
-
-// 监听容器宽高变化，重置图表大小
-const resizeChart = () => {
-  if (chartInstance) {
-    chartInstance.resize()
-  }
-}
-
-onMounted(() => {
-  initChart()
-  // 添加窗口 resize 监听器，图表自适应:cite[8]
-  window.addEventListener('resize', resizeChart)
-})
-
-onBeforeUnmount(() => {
-  // 移除事件监听器
-  window.removeEventListener('resize', resizeChart)
-  // 销毁图表实例，释放资源:cite[8]
-  if (chartInstance) {
-    chartInstance.dispose()
-    chartInstance = null
-  }
-})
+const { width = '100%', height = '100%', option = {} } = defineProps<Props>()
 </script>
+
+<template>
+  <v-chart class="chart" :option="option" :style="{ width, height }" autoresize />
+</template>
+
+<style lang="sass" scoped></style>

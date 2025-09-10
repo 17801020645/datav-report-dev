@@ -1,7 +1,7 @@
 <template>
   <common-card title="今日交易用户数" value="81,014">
     <template #default>
-      <v-chart class="chart" :option="option" autoresize />
+      <base-chart class="chart" :option="option" :width="width" :height="height" autoresize />
     </template>
     <!-- 具名插槽 -->
     <template #footer>
@@ -13,31 +13,11 @@
 
 <script setup lang="ts">
 import CommonCard from '../CommonCard/CommonCard.vue'
-import { use } from 'echarts/core'
-import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart } from 'echarts/charts'
-import {
-  GridComponent,
-  DatasetComponent,
-  LegendComponent,
-  TooltipComponent,
-  ToolboxComponent,
-} from 'echarts/components'
-import VChart from 'vue-echarts'
+import BaseChart from '../BaseChart/BaseChart.vue'
 import { ref } from 'vue'
 
-use([
-  DatasetComponent,
-  GridComponent,
-  LegendComponent,
-  LineChart,
-  TooltipComponent,
-  ToolboxComponent,
-  CanvasRenderer,
-])
-
-// provide(THEME_KEY, 'dark')
-
+const height = ref('100%')
+const width = ref('100%')
 const option = ref({
   color: ['#3398DB'],
   xAxis: {
@@ -79,21 +59,6 @@ const option = ref({
     right: 0,
   },
 })
-
-//TODO 按需引入，当前可行
-// import { ref } from 'vue'
-// import BaseChart from '../BaseChart/BaseChart.vue' // 根据你的路径调整
-
-// const chartOption = ref({
-//   xAxis: {},
-//   yAxis: {},
-//   series: [
-//     {
-//       type: 'line', // 使用折线图
-//       data: [320, 432, 501, 334, 790, 930, 220, 320, 532, 320, 834, 690, 530],
-//     },
-//   ],
-// })
 </script>
 
 <style scoped></style>

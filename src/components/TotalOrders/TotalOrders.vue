@@ -1,7 +1,7 @@
 <template>
   <common-card title="累计订单量" value="2,157,420">
     <template #default>
-      <v-chart class="chart" :option="option" autoresize />
+      <base-chart class="chart" :option="option" :width="width" :height="height" autoresize />
     </template>
     <template #footer>
       <span>昨日订单量 </span>
@@ -12,13 +12,11 @@
 
 <script setup lang="ts">
 import CommonCard from '../CommonCard/CommonCard.vue'
-import { use } from 'echarts/core'
-import { BarChart } from 'echarts/charts'
-import { GridComponent, DatasetComponent } from 'echarts/components'
-import VChart from 'vue-echarts'
+import BaseChart from '../BaseChart/BaseChart.vue'
 import { ref } from 'vue'
 
-use([BarChart, DatasetComponent, GridComponent])
+const height = ref('100%')
+const width = ref('100%')
 
 const option = ref({
   xAxis: {
