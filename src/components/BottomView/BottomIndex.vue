@@ -177,6 +177,15 @@ const categoryOptions = ref({
           percent: '21.15%',
         },
       ],
+      label: {
+        normal: {
+          show: true,
+          position: 'outter',
+          formatter: function (param: Object | Array<Object>) {
+            console.log(param)
+          },
+        },
+      },
     },
   ],
 })
